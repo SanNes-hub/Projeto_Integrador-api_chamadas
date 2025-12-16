@@ -146,7 +146,7 @@ http://127.0.0.1:8000/api/docs
 ---
 
 ## Estrutura do Banco de Dados (Modelos) 💾
-[Diagrama ER](diagrama_er.png)
+![Diagrama ER](diagrama_er.png)
 
 ### Entidades Principais
 
