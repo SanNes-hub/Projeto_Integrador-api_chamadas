@@ -1,81 +1,53 @@
-EduTrack API — Sistema de Chamada de Alunos (Django + DRF) 🏫
+# EduTrack API — Sistema de Chamada de Alunos (Django + DRF) 🏫
 
-🏛️ Instituições de Fomento e Parceria
+## 🏛️ Instituições de Fomento e Parceria
 
 Este projeto foi desenvolvido com o apoio e orientação técnica de:
 
-Instituto Federal de Brasília (IFB) 🤝 HBR de Brasília
+* **Instituto Federal de Brasília (IFB)** 🤝 **Instituto HBR**
 
-Orientador: Prof. Claudio Ulisse
+**Orientador:** Prof. Claudio Ulisse
 
-Visão Geral
+---
 
-API REST desenvolvida em Django + Django REST Framework para modernizar o sistema de chamada de alunos de uma universidade pública. O sistema visa combater o absenteísmo escolar (que afeta cerca de 20-30% dos alunos, segundo o INEP) através de um controle digital eficiente.
 
-Este projeto foi desenvolvido como Projeto Integrador, permitindo que professores registrem presença em tempo real e a coordenação visualize dados estatísticos de evasão escolar.
+## Visão Geral
 
-A API é segura, documentada e desenhada para suportar relacionamentos acadêmicos complexos (Turmas, Matrículas e Presenças).
+API REST desenvolvida em **Django + Django REST Framework** para modernizar o sistema de chamada de alunos de uma universidade pública. O sistema visa combater o absenteísmo escolar (que afeta cerca de **20–30% dos alunos**, segundo o INEP) por meio de um controle digital eficiente.
 
-Funcionalidades Principais
+Este projeto foi desenvolvido como **Projeto Integrador**, permitindo que professores registrem presença em tempo real e que a coordenação visualize dados estatísticos de evasão escolar.
 
-Gestão de Pessoas: Cadastro de Professores e Alunos (com dados demográficos).
+A API é **segura**, **documentada** e projetada para suportar **relacionamentos acadêmicos complexos**, como Turmas, Matrículas e Presenças.
 
-Gestão Acadêmica: Criação de Turmas e Matrícula de Alunos (vínculo N:N).
+---
 
-Registro de Chamada: Marcação de presença ou falta em datas específicas.
+## Funcionalidades Principais
 
-Liderança de Turma: Definição de Representante de Turma (vínculo 1:1).
+* **Gestão de Pessoas:** Cadastro de Professores e Alunos, incluindo dados demográficos.
+* **Gestão Acadêmica:** Criação de Turmas e Matrícula de Alunos (relacionamento N:N).
+* **Registro de Chamada:** Marcação de presença ou falta em datas específicas.
+* **Liderança de Turma:** Definição de Representante de Turma (relacionamento 1:1).
+* **Dashboard Estatístico:** Visualização consolidada de dados da turma e frequência.
+* **Documentação Automática:** Interfaces Swagger e Redoc integradas.
 
-Dashboard Estatístico: Visualização consolidada da turma e frequência.
+---
 
-Documentação Automática: Interface Swagger e Redoc integradas.
+## Tecnologias Utilizadas 🛠️
 
-Tecnologias Utilizadas 🛠️
+| Tecnologia            | Versão | Descrição                                               |
+| --------------------- | ------ | ------------------------------------------------------- |
+| Python                | 3.10+  | Linguagem de programação utilizada no desenvolvimento   |
+| Django                | 5.0    | Framework web responsável pela estrutura base           |
+| Django REST Framework | 3.14+  | Framework para construção de APIs RESTful               |
+| SQLite                | Padrão | Banco de dados utilizado no ambiente de desenvolvimento |
+| drf-spectacular       | Latest | Geração automática de documentação OpenAPI              |
+| Pip / Venv            | Padrão | Gerenciamento de pacotes e ambiente virtual             |
 
-Tecnologia
+---
 
-Versão
+## Estrutura do Projeto 📂
 
-Descrição
-
-Python
-
-3.10+
-
-Linguagem de programação utilizada no desenvolvimento.
-
-Django
-
-5.0
-
-Framework web responsável pela estrutura base.
-
-Django REST Framework
-
-3.14+
-
-Framework para construção de APIs RESTful.
-
-SQLite
-
-Padrão
-
-Banco de dados utilizado no ambiente de desenvolvimento.
-
-drf-spectacular
-
-Latest
-
-Geração automática de documentação OpenAPI.
-
-Pip / Venv
-
-Padrão
-
-Gerenciamento de pacotes e ambiente virtual.
-
-Estrutura do Projeto 📂
-
+```text
 sistema_chamada/
 ├── manage.py
 ├── db.sqlite3
@@ -99,253 +71,210 @@ sistema_chamada/
 │   └── migrations/
 │
 └── venv/
+```
 
+---
 
-Descrição dos Diretórios
+## Descrição dos Diretórios
 
-Diretório / Arquivo
+| Diretório / Arquivo | Descrição                                                   |
+| ------------------- | ----------------------------------------------------------- |
+| manage.py           | Script principal do Django para comandos administrativos    |
+| db.sqlite3          | Banco de dados local (desenvolvimento)                      |
+| config/             | Configurações globais do projeto                            |
+| config/settings.py  | Apps instalados, banco de dados e middlewares               |
+| core/               | Aplicação principal com regras de negócio acadêmicas        |
+| core/models.py      | Definição das entidades (Professor, Turma, Aluno, Presença) |
+| core/views.py       | Lógica dos endpoints e ViewSets                             |
+| core/serializers.py | Transformação de dados (Python ↔ JSON)                      |
+| core/admin.py       | Personalização do painel administrativo                     |
 
-Descrição
+---
 
-manage.py
+## Instalação e Execução ⚙️
 
-Script principal do Django para execução de comandos administrativos.
+### 1. Clonar o repositório
 
-db.sqlite3
-
-Banco de dados local (desenvolvimento).
-
-config/
-
-Configurações globais do projeto (settings, rotas principais).
-
-config/settings.py
-
-Configurações de apps instalados, banco de dados e middlewares.
-
-core/
-
-Aplicação principal contendo as regras de negócio acadêmicas.
-
-core/models.py
-
-Definição das tabelas (Professor, Turma, Aluno, Presença).
-
-core/views.py
-
-Lógica dos endpoints e ViewSets da API.
-
-core/serializers.py
-
-Transformação de dados (Python ↔ JSON).
-
-core/admin.py
-
-Personalização do Painel Administrativo do Django.
-
-Instalação e Execução ⚙️
-
-1. Clonar o repositório
-
-git clone [https://github.com/SEU-USUARIO/nome-do-projeto.git](https://github.com/SEU-USUARIO/nome-do-projeto.git)
+```bash
+git clone https://github.com/SEU-USUARIO/nome-do-projeto.git
 cd nome-do-projeto
+```
 
+### 2. Criar e ativar o ambiente virtual
 
-2. Criar e ativar o ambiente virtual
-
+```bash
 # Windows
 python -m venv venv
 .\venv\Scripts\activate
 
-# Linux/Mac
+# Linux / macOS
 python3 -m venv venv
 source venv/bin/activate
+```
 
+### 3. Instalar dependências
 
-3. Instalar dependências
-
+```bash
 pip install django djangorestframework drf-spectacular
+```
 
+### 4. Aplicar migrações
 
-4. Aplicar migrações (Criar Banco de Dados)
-
+```bash
 python manage.py makemigrations
 python manage.py migrate
+```
 
+### 5. Criar superusuário
 
-5. Criar superusuário (Admin)
-
+```bash
 python manage.py createsuperuser
+```
 
+### 6. Executar o servidor
 
-6. Rodar servidor
-
+```bash
 python manage.py runserver
+```
 
+A API estará disponível em:
 
-A API estará disponível em: http://127.0.0.1:8000/api/
+```
+http://127.0.0.1:8000/api/docs
+```
 
-Estrutura do Banco de Dados (Modelos) 💾
+---
 
-Nota: Certifique-se de que o arquivo diagrama_er.png está na raiz do projeto.
+## Estrutura do Banco de Dados (Modelos) 💾
 
-Entidades Principais
+> **Nota:** Certifique-se de que o arquivo `diagrama_er.png` está na raiz do projeto.
 
-Professor 🧑‍🏫
+### Entidades Principais
 
-nome, email, departamento
+#### Professor 🧑‍🏫
 
-Relação: 1:N com Turma.
+* nome
+* email
+* departamento
 
-Turma 📚
+Relação: **1:N** com Turma.
 
-nome, descricao, status
+#### Turma 📚
 
-Relação: Tem 1 Professor e N Alunos (via Matrícula).
+* nome
+* descricao
+* status
 
-Aluno 🎒
+Relação: possui **1 Professor** e **N Alunos** (via Matrícula).
 
-nome, matricula, email, curso
+#### Aluno 🎒
 
-Relação: Pode estar em N Turmas.
+* nome
+* matricula
+* email
+* curso
 
-Matrícula ✍️
+Relação: pode estar matriculado em **N Turmas**.
 
-Tabela associativa que liga Aluno à Turma.
+#### Matrícula ✍️
 
-Armazena presenca_acumulada.
+* Tabela associativa entre Aluno e Turma
+* Armazena `presenca_acumulada`
 
-Presença 📅
+#### Presença 📅
 
-data, status (Presente/Ausente)
+* data
+* status (Presente / Ausente)
 
 Ligada a uma Matrícula específica.
 
-Endpoints Principais 🌐
+---
 
-Base URL: http://127.0.0.1:8000/api/
+## Endpoints Principais 🌐
 
-Recurso
+**Base URL:**
 
-Método
+```
+http://127.0.0.1:8000/api/
+```
 
-Endpoint
+| Recurso       | Método | Endpoint                            | Descrição                  |
+| ------------- | ------ | ----------------------------------- | -------------------------- |
+| Professores   | GET    | /professores/                       | Lista todos os professores |
+| Professores   | POST   | /professores/                       | Cadastra novo professor    |
+| Alunos        | POST   | /alunos/                            | Cadastra novo aluno        |
+| Turmas        | POST   | /turmas/                            | Cria nova turma            |
+| Matrícula     | POST   | /turmas/{id}/matricular-aluno/      | Matricula aluno            |
+| Representante | PUT    | /turmas/{id}/definir-representante/ | Define líder da turma      |
+| Presença      | POST   | /presencas/                         | Registra presença ou falta |
 
-Descrição
+---
 
-Professores
+## Endpoint Especial: Dashboard Completo 📈
 
-GET
+Fornece uma visão consolidada de uma turma específica.
 
-/professores/
+```
+GET /api/turmas/{id}/dashboard/
+```
 
-Lista todos os professores.
+### Retorna:
 
+* Dados da Turma
+* Professor responsável
+* Representante da turma
+* Lista de alunos matriculados com presença acumulada
 
+---
 
-POST
+## Documentação Automática 📖
 
-/professores/
+Disponível via **drf-spectacular**:
 
-Cadastra novo professor.
+* Swagger UI: `http://127.0.0.1:8000/api/docs/`
+* Redoc: `http://127.0.0.1:8000/api/redoc/`
+* Schema JSON: `http://127.0.0.1:8000/api/schema/`
 
-Alunos
+---
 
-POST
+## Acesso ao Admin 🔐
 
-/alunos/
+Painel administrativo para gestão manual dos dados:
 
-Cadastra novo aluno.
-
-Turmas
-
-POST
-
-/turmas/
-
-Cria nova turma.
-
-Matrícula
-
-POST
-
-/turmas/{id}/matricular-aluno/
-
-Insere aluno na turma.
-
-Representante
-
-PUT
-
-/turmas/{id}/definir-representante/
-
-Define líder da sala.
-
-Presença
-
-POST
-
-/presencas/
-
-Registra falta/presença (Dia + Matrícula).
-
-Endpoint Especial: Dashboard Completo 📈
-
-Mostra a visão 360º de uma turma específica, já consolidada.
-
-URL: GET /api/turmas/{id}/dashboard/
-
-O que retorna:
-
-Dados da Turma (Nome, Status)
-
-Dados do Professor Responsável
-
-Dados do Representante
-
-Lista de Alunos Matriculados (com Presença Acumulada)
-
-Documentação Automática 📖
-
-Disponível graças ao drf-spectacular:
-
-Swagger UI: http://127.0.0.1:8000/api/docs/
-
-Redoc: http://127.0.0.1:8000/api/redoc/
-
-Schema JSON: http://127.0.0.1:8000/api/schema/
-
-Acesso ao Admin 🔐
-
-Para gestão manual dos dados (backoffice):
+```
 http://127.0.0.1:8000/admin/
+```
 
-Objetivo do Projeto 💡
+---
 
-Este projeto visa integrar conhecimentos de:
+## Objetivo do Projeto 💡
 
-Modelagem de Banco de Dados Relacional.
+Integrar conhecimentos de:
 
-Desenvolvimento de APIs RESTful com Django.
+* Modelagem de Banco de Dados Relacional
+* Desenvolvimento de APIs RESTful com Django
+* Serialização e Views complexas
+* Documentação de Software
 
-Serialização e Views complexas.
+**Foco:** solução real para gestão educacional e redução da evasão escolar.
 
-Documentação de Software.
+---
 
-Foco: Solução real para gestão educacional e redução de evasão.
+## Autenticação e Perfis 🔒
 
-Autenticação e Perfis 🔒
+A API suporta múltiplos perfis de acesso:
 
-A API foi projetada para suportar diferentes perfis de acesso:
+* **Administrador:** acesso total (CRUD completo)
+* **Professor:** acesso às suas turmas e registros de presença
+* **Aluno:** acesso de leitura ao próprio histórico
 
-Administrador: Acesso total (CRUD de Professores, Turmas, Alunos).
+Atualmente, para desenvolvimento e testes, são utilizados:
 
-Professor: Acesso às suas turmas e registro de presenças.
+* `SessionAuthentication`
+* `BasicAuthentication`
 
-Aluno: Acesso de leitura ao seu histórico.
+---
 
-Atualmente, para fins de desenvolvimento e testes no Swagger, utiliza-se Autenticação por Sessão (SessionAuthentication) e Autenticação Básica (BasicAuthentication).
+## Créditos
 
-Créditos
-
-Developed by [Seu Nome Aqui] 👋
+Developed by **Adriana Santos**
