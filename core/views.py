@@ -33,6 +33,7 @@ class AlunoViewSet(viewsets.ModelViewSet):
 class TurmaViewSet(viewsets.ModelViewSet):
     queryset = Turma.objects.all()
     
+    # GET é público (para ver as ativas), mas Criar/Editar exige login
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     def get_queryset(self):
@@ -44,8 +45,10 @@ class TurmaViewSet(viewsets.ModelViewSet):
 
     def get_serializer_class(self):
         if self.action == 'list':
-            return TurmaPublicaSerializer # Listagem pública (Sem representante/datas)
-        return TurmaSerializer # Detalhe completo
+            return TurmaPublicaSerializer # Listagem pública
+        if self.action == 'matricular_aluno':
+            return MatriculaSerializer
+        return TurmaSerializer # Detalhe completo padrão
 
     @action(detail=True, methods=['post'])
     def atribuir_professor(self, request, pk=None):
@@ -67,6 +70,10 @@ class TurmaViewSet(viewsets.ModelViewSet):
     def matricular_aluno(self, request, pk=None):
         turma = self.get_object()
         aluno_id = request.data.get('aluno_id')
+        
+        if not aluno_id:
+            return Response({'error': 'O campo aluno_id é obrigatório.'}, status=400)
+
         aluno = get_object_or_404(Aluno, id=aluno_id)
         Matricula.objects.get_or_create(turma=turma, aluno=aluno)
         return Response({'status': f'Aluno {aluno.nome} matriculado com sucesso.'})
