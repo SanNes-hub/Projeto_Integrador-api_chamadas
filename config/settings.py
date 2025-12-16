@@ -131,4 +131,10 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication', # Permite login por popup
         'rest_framework.authentication.SessionAuthentication',
     ],
+
+}
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'SISTEMA DE CHAMADA DE ALUNOS',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
 }
