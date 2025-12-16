@@ -146,8 +146,7 @@ http://127.0.0.1:8000/api/docs
 ---
 
 ## Estrutura do Banco de Dados (Modelos) 💾
-
-> **Nota:** Certifique-se de que o arquivo `diagrama_er.png` está na raiz do projeto.
+[Diagrama ER](diagrama_er.png)
 
 ### Entidades Principais
 
