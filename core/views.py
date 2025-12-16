@@ -1,44 +1,52 @@
-from rest_framework import viewsets, status, permissions
+from rest_framework import viewsets, permissions, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from .models import Professor, Turma, Aluno, Matricula, Presenca
 from .serializers import (
-    ProfessorSerializer, TurmaSerializer, AlunoSerializer, 
-    MatriculaSerializer, PresencaSerializer, TurmaDashboardSerializer
+    ProfessorSerializer, ProfessorPublicoSerializer,
+    TurmaSerializer, TurmaPublicaSerializer, TurmaDashboardSerializer,
+    AlunoSerializer, MatriculaSerializer, PresencaSerializer
 )
-
-# Permissão personalizada: Leitura para todos, Escrita apenas para logados
-class IsAuthenticatedOrReadOnly(permissions.BasePermission):
-    def has_permission(self, request, view):
-        if request.method in permissions.SAFE_METHODS: # GET, HEAD, OPTIONS
-            return True
-        return request.user and request.user.is_authenticated
 
 class ProfessorViewSet(viewsets.ModelViewSet):
     queryset = Professor.objects.all()
-    serializer_class = ProfessorSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAuthenticated]
 
-    # Rota: GET /api/professores/{id}/turmas/
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return ProfessorPublicoSerializer
+        return ProfessorSerializer
+
     @action(detail=True, methods=['get'])
     def turmas(self, request, pk=None):
         professor = self.get_object()
         turmas = Turma.objects.filter(professor=professor)
-        serializer = TurmaSerializer(turmas, many=True)
+        serializer = TurmaPublicaSerializer(turmas, many=True)
         return Response(serializer.data)
 
 class AlunoViewSet(viewsets.ModelViewSet):
     queryset = Aluno.objects.all()
     serializer_class = AlunoSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAuthenticated] 
 
 class TurmaViewSet(viewsets.ModelViewSet):
     queryset = Turma.objects.all()
-    serializer_class = TurmaSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
-    # Rota: POST /api/turmas/{id}/atribuir-professor/
+    def get_queryset(self):
+        # Se o usuário estiver logado (Admin/Professor), vê TUDO (Ativas, Canceladas, Concluídas)
+        if self.request.user.is_authenticated:
+            return Turma.objects.all()
+        # Se for público (anônimo), vê APENAS as turmas ATIVAS
+        return Turma.objects.filter(status='ATIVA')
+
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return TurmaPublicaSerializer # Listagem pública (Sem representante/datas)
+        return TurmaSerializer # Detalhe completo
+
     @action(detail=True, methods=['post'])
     def atribuir_professor(self, request, pk=None):
         turma = self.get_object()
@@ -48,7 +56,6 @@ class TurmaViewSet(viewsets.ModelViewSet):
         turma.save()
         return Response({'status': f'Professor {professor.nome} atribuído à turma.'})
 
-    # Rota: GET /api/turmas/{id}/alunos/
     @action(detail=True, methods=['get'])
     def alunos(self, request, pk=None):
         turma = self.get_object()
@@ -56,25 +63,20 @@ class TurmaViewSet(viewsets.ModelViewSet):
         serializer = MatriculaSerializer(matriculas, many=True)
         return Response(serializer.data)
 
-    # Rota: POST /api/turmas/{id}/matricular-aluno/
     @action(detail=True, methods=['post'])
     def matricular_aluno(self, request, pk=None):
         turma = self.get_object()
         aluno_id = request.data.get('aluno_id')
         aluno = get_object_or_404(Aluno, id=aluno_id)
-        
-        # Cria a matrícula se não existir
         Matricula.objects.get_or_create(turma=turma, aluno=aluno)
         return Response({'status': f'Aluno {aluno.nome} matriculado com sucesso.'})
 
-    # Rota: PUT /api/turmas/{id}/definir-representante/
     @action(detail=True, methods=['put'])
     def definir_representante(self, request, pk=None):
         turma = self.get_object()
         aluno_id = request.data.get('aluno_id')
         aluno = get_object_or_404(Aluno, id=aluno_id)
         
-        # Regra: Um aluno só pode ser representante de UMA turma
         if hasattr(aluno, 'representante_de_turma'):
             return Response({'error': 'Este aluno já é representante de outra turma.'}, status=400)
 
@@ -82,7 +84,6 @@ class TurmaViewSet(viewsets.ModelViewSet):
         turma.save()
         return Response({'status': f'Aluno {aluno.nome} é o novo representante.'})
 
-    # Rota: GET /api/turmas/{id}/dashboard/
     @action(detail=True, methods=['get'])
     def dashboard(self, request, pk=None):
         turma = self.get_object()
@@ -92,4 +93,4 @@ class TurmaViewSet(viewsets.ModelViewSet):
 class PresencaViewSet(viewsets.ModelViewSet):
     queryset = Presenca.objects.all()
     serializer_class = PresencaSerializer
-    permission_classes = [permissions.IsAuthenticated] # Apenas logados podem mexer em presença
+    permission_classes = [permissions.IsAuthenticated]
