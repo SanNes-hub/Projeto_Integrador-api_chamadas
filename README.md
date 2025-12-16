@@ -1,44 +1,12 @@
-<div align="center">
-
 EduTrack API — Sistema de Chamada de Alunos (Django + DRF) 🏫
 
-🏢 Instituições de Fomento e Parceria
+🏛️ Instituições de Fomento e Parceria
 
-<p>Este projeto foi desenvolvido com o apoio e orientação técnica de:</p>
+Este projeto foi desenvolvido com o apoio e orientação técnica de:
 
-Instituto Federal de Brasília (IFB) ✨ Instituto HBR
+Instituto Federal de Brasília (IFB) 🤝 HBR de Brasília
 
 Orientador: Prof. Claudio Ulisse
-
-</div>
-
-📋 Sumário
-
-Visão Geral
-
-Funcionalidades Principais
-
-Tecnologias Utilizadas
-
-Estrutura do Projeto
-
-Descrição dos Diretórios
-
-Instalação e Execução
-
-Estrutura do Banco de Dados (Modelos)
-
-Endpoints Principais
-
-Endpoint Especial: Dashboard Completo
-
-Documentação Automática
-
-Acesso ao Admin
-
-Objetivo do Projeto
-
-Autenticação e Perfis
 
 Visão Geral
 
@@ -219,7 +187,7 @@ A API estará disponível em: http://127.0.0.1:8000/api/
 
 Estrutura do Banco de Dados (Modelos) 💾
 
-<div align="center"> <img src="diagrama_er.png" alt="Diagrama ER" width="600px"> </div>
+Nota: Certifique-se de que o arquivo diagrama_er.png está na raiz do projeto.
 
 Entidades Principais
 
@@ -378,6 +346,6 @@ Aluno: Acesso de leitura ao seu histórico.
 
 Atualmente, para fins de desenvolvimento e testes no Swagger, utiliza-se Autenticação por Sessão (SessionAuthentication) e Autenticação Básica (BasicAuthentication).
 
-<div align="center">
-Developed by <strong>[Seu Nome Aqui]</strong> 👋
-</div>
+Créditos
+
+Developed by [Seu Nome Aqui] 👋
